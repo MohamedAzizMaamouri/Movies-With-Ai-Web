@@ -51,3 +51,24 @@ async def search_movies(query: str, page: int = 1):
 
 async def search_tv(query: str, page: int = 1):
     return await fetch("/search/tv", {"query": query, "page": page})
+
+
+async def get_movie_genres():
+    return await fetch("/genre/movie/list")
+
+async def get_tv_genres():
+    return await fetch("/genre/tv/list")
+
+async def discover_movies(page: int = 1, genre_id: int = None, year: int = None, min_rating: float = None):
+    params = {"page": page, "sort_by": "popularity.desc"}
+    if genre_id:   params["with_genres"] = genre_id
+    if year:       params["primary_release_year"] = year
+    if min_rating: params["vote_average.gte"] = min_rating
+    return await fetch("/discover/movie", params)
+
+async def discover_tv(page: int = 1, genre_id: int = None, year: int = None, min_rating: float = None):
+    params = {"page": page, "sort_by": "popularity.desc"}
+    if genre_id:   params["with_genres"] = genre_id
+    if year:       params["first_air_date_year"] = year
+    if min_rating: params["vote_average.gte"] = min_rating
+    return await fetch("/discover/tv", params)

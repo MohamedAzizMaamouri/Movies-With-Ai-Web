@@ -5,7 +5,7 @@ interface MediaItem {
   title?: string;
   name?: string;
   poster_path: string | null;
-  vote_average: number;
+  vote_average?: number;
   media_type?: string;
 }
 
@@ -25,7 +25,7 @@ export default function MediaGrid({ items, type }: Props) {
             id={item.id}
             title={item.title ?? item.name ?? "Untitled"}
             posterPath={item.poster_path}
-            rating={item.vote_average}
+            rating={item.vote_average ?? 0}
             type={resolvedType}
           />
         );

@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Query
+from typing import Optional
 from app.services import tmdb
 
 router = APIRouter(prefix="/movies", tags=["movies"])
@@ -18,6 +19,19 @@ async def top_rated(page: int = Query(1)):
 @router.get("/upcoming")
 async def upcoming(page: int = Query(1)):
     return await tmdb.get_upcoming_movies(page)
+
+@router.get("/genres")
+async def genres():
+    return await tmdb.get_movie_genres()
+
+@router.get("/discover")
+async def discover(
+    page: int = Query(1),
+    genre_id: Optional[int] = None,
+    year: Optional[int] = None,
+    min_rating: Optional[float] = None,
+):
+    return await tmdb.discover_movies(page, genre_id, year, min_rating)
 
 @router.get("/{movie_id}")
 async def detail(movie_id: int):

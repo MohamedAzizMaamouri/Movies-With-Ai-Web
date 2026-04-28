@@ -6,7 +6,7 @@ interface Props {
   id: number;
   title: string;
   posterPath: string | null;
-  rating: number;
+  rating?: number;
   type: "movie" | "tv";
 }
 
@@ -26,7 +26,7 @@ export default function MediaCard({ id, title, posterPath, rating, type }: Props
         </div>
         {/* Rating badge */}
         <div className="absolute top-2 left-2 bg-black/70 text-yellow-400 text-xs font-medium px-2 py-1 rounded-full">
-          ★ {rating.toFixed(1)}
+          ★ {(rating ?? 0).toFixed(1)}
         </div>
         {/* Title on hover */}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-200">
