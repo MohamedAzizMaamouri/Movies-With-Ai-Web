@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.db.database import Base, engine
-from app.api import auth, users
+from app.api import auth, users, movies, tv, search
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -26,6 +26,9 @@ app.add_middleware(
 # Include routers
 app.include_router(auth.router, prefix=settings.API_V1_STR)
 app.include_router(users.router, prefix=settings.API_V1_STR)
+app.include_router(movies.router, prefix=settings.API_V1_STR)
+app.include_router(tv.router, prefix=settings.API_V1_STR)
+app.include_router(search.router, prefix=settings.API_V1_STR)
 
 
 @app.get("/")
